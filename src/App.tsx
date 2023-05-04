@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./assets/styles/app.css";
+import { Autocomplete } from "./components/autocomplete";
+import autocompleteMockedData from "./data/autocomplete.mocked.json";
 
 function App() {
+
+  const handleSelect = () => {};
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Autocomplete
+          placeholder="Start typing to search"
+          icon="search"
+          options={autocompleteMockedData}
+          keysToSearch={["name", "surname"]}
+          keysToShow={["name", "surname"]}
+          apiUrl="https://deel.juanigallo.com/api/search?q="
+          onSelect={handleSelect}
+        />
     </div>
   );
 }
