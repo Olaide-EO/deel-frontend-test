@@ -4,9 +4,29 @@
   left: 0;
   top: calc(var(--inputHeight) + 4px);
   z-index: 10000;
-  height: 100px;
+  min-height: 70px;
+  max-height: 300px;
   padding: var(--s4);
   background-color: var(--whiteColor);
   border: var(--cardBorder);
   box-shadow: var(--dropdownBoxShadow);
+  overflow-y: scroll;
 }
+
+.dropdown-container .loading {
+    animation: spin 1s linear infinite;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.dropdownitems {
+border-bottom: 1px solid #F4F4F4;
+height: 48px;
+display: flex;
+align-items: center;
+color: var(--blackColor)
+}
+/* .dropdown-empty-state {
+
+} */

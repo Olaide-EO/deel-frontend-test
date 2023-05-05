@@ -27,7 +27,7 @@ body {
 @-webkit-keyframes fadeInUp {
   0% {
       opacity: 0;
-      -webkit-transform: translateY(18px);
+      -webkit-transform: translateY(10px);
   }
 
   100% {
@@ -39,7 +39,7 @@ body {
 @-moz-keyframes fadeInUp {
   0% {
       opacity: 0;
-      -moz-transform: translateY(18px);
+      -moz-transform: translateY(10px);
   }
 
   100% {
@@ -51,7 +51,7 @@ body {
 @-o-keyframes fadeInUp {
   0% {
       opacity: 0;
-      -o-transform: translateY(18px);
+      -o-transform: translateY(10px);
   }
 
   100% {
@@ -63,7 +63,7 @@ body {
 @keyframes fadeInUp {
   0% {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(10px);
   }
 
   100% {
@@ -77,4 +77,35 @@ body {
   -moz-animation-name: fadeInUp;
   -o-animation-name: fadeInUp;
   animation-name: fadeInUp;
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+      transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+  }
+}
+
+.animated {
+  -webkit-animation-duration: 0.8s;
+  -moz-animation-duration: 0.8s;
+  -o-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
 }

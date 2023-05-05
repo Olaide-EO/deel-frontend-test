@@ -6,17 +6,14 @@ const App = () => {
   const handleSelect = () => {};
 
   return (
-    <div className="app_container">
+    <div className="app-container">
       <h1 className="heading mb-9">Deel Autocomplete Test</h1>
-
-
       <Autocomplete
         placeholder="Type to search..."
-        icon="search"
         options={autocompleteMockedData}
-        keysToSearch={["name", "surname"]}
-        keysToShow={["name", "surname"]}
-        apiUrl="https://deel.juanigallo.com/api/search?q="
+        keysToSearch={["name", "email"]}
+        keysToShow={["name", "email"]}
+        url="https://ebenezer.oladipo.com/api/search?q="
         onSelect={handleSelect}
       />
     </div>
