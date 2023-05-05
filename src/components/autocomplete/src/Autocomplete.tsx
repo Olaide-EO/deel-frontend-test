@@ -18,6 +18,7 @@ type AutoCompleteProps = {
   placeholder?: string;
   keysToSearch: string[];
   keysToShow: string[];
+  debounceTime?: number;
 };
 
 const AutoComplete = memo(
@@ -27,6 +28,7 @@ const AutoComplete = memo(
     placeholder,
     keysToSearch,
     keysToShow,
+    debounceTime = 500
   }: AutoCompleteProps) => {
     const [inputValue, setInputValue] = useState("");
     const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
@@ -71,7 +73,7 @@ const AutoComplete = memo(
       } catch (error) {
         console.log(error);
       }
-    }, 500);
+    }, debounceTime);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;

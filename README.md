@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# Deel frontend test - Autocomplete Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+AutoComplete is a React component that provides a search box with suggestions for the user to choose from.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+You can run this project by running
 
-### `npm start`
+```
+npm install or yarn install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+followed by
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+npm start or yarn start
+```
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+for production run
 
-### `npm run build`
+```
+npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can use the component by importing it and passing in the necessary props:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```import AutoComplete from '@yourorg/autocomplete';
 
-### `npm run eject`
+const options = [
+  { id: 1, name: 'John Smith', email: 'john@example.com' },
+  { id: 2, name: 'Jane Doe', email: 'jane@example.com' },
+  { id: 3, name: 'Bob Johnson', email: 'bob@example.com' },
+];
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+function handleSelect(option) {
+  console.log(option);
+}
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+function MyComponent() {
+  return (
+    <AutoComplete
+      options={options}
+      onSelect={handleSelect}
+      placeholder="Search for a user..."
+      keysToSearch={['name', 'email']}
+      keysToShow={['name']}
+      debounceTime={500}
+    />
+  );
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+## Props
+The following props are available for the AutoComplete component:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* options: An array of objects representing the available options for the   user to choose from.
+* onSelect: A function that is called when the user selects an option from the suggestions list.
+* placeholder _(optional)_: The placeholder text to display in the search box.
+* keysToSearch: An array of strings representing the keys in the options array to search for matches.
+* keysToShow: An array of strings representing the keys in the options array to display in the suggestions list.
+* debounceTime _(optional)_: The amount of time in milliseconds to delay the API call for filtering suggestions.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Branches
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- master -> React with classes, using create-react-app
+- develop -> Implemented components
