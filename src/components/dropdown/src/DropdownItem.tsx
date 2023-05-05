@@ -18,7 +18,10 @@ const DropdownItem = ({ option, onSelect, keysToShow }: DropdownItemProps) => {
       .join(" -- ");
   };
   return (
-    <div className="dropdownitems" onClick={() => onSelect(option)}>
+    <div
+      className="dropdownitems cursor-pointer"
+      onClick={() => onSelect(option)}
+    >
       {formatItem(option)}
     </div>
   );
