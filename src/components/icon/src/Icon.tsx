@@ -1,9 +1,11 @@
-type IconType = {
-  src: string;
-};
+import { memo } from "react";
 
-const Icon = ({ src }: IconType) => {
+interface IconType {
+  src: string;
+}
+
+const Icon = memo(({ src }: IconType) => {
   return <img alt="" src={`../../../assets/icons/${src}.svg`} />;
-};
+});
 
 export default Icon;

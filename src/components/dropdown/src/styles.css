@@ -14,19 +14,16 @@
 }
 
 .dropdown-container .loading {
-    animation: spin 1s linear infinite;
-    position: absolute;
-    right: 10px;
-    top: 10px;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 .dropdownitems {
-border-bottom: 1px solid #F4F4F4;
-height: 48px;
-display: flex;
-align-items: center;
-color: var(--blackColor)
+  border-bottom: 1px solid #f4f4f4;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  color: var(--blackColor);
 }
-/* .dropdown-empty-state {
-
-} */

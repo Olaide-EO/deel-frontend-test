@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 // import debounce from "../../../utils/commonfunctions/debounce";
 import { TextInput } from "../../text-input";
 import "./styles.css";
@@ -21,83 +21,85 @@ type AutoCompleteProps = {
   url?: string;
 };
 
-const AutoComplete = ({
-  options,
-  onSelect,
-  placeholder,
-  keysToSearch,
-  keysToShow
-}: AutoCompleteProps) => {
-  const [inputValue, setInputValue] = useState("");
-  const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setOpen] = useState(false);
+const AutoComplete = memo(
+  ({
+    options,
+    onSelect,
+    placeholder,
+    keysToSearch,
+    keysToShow,
+  }: AutoCompleteProps) => {
+    const [inputValue, setInputValue] = useState("");
+    const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isOpen, setOpen] = useState(false);
 
-  const ref = useOutsideClick(() => setOpen(false));
+    const ref = useOutsideClick(() => setOpen(false));
 
-  const handleOptionClick = (option: Option) => {
-    setInputValue(`${option.name} ${option.email}`);
-    onSelect(option);
-    setOpen(false);
-  };
+    const handleOptionClick = (option: Option) => {
+      setInputValue(`${option.name} ${option.email}`);
+      onSelect(option);
+      setOpen(false);
+    };
 
-  useEffect(() => {
-    const fetchOptions = async () => {
+    useEffect(() => {
+      const fetchOptions = async () => {
+        setIsLoading(true);
+        // Simulate API call delay
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setFilteredOptions(options);
+        setIsLoading(false);
+      };
+
+      fetchOptions();
+    }, [options]);
+
+    const handleInputChange = async (
+      event: React.ChangeEvent<HTMLInputElement>
+    ): Promise<void> => {
+      const value = event.target.value;
+      setInputValue(value);
       setIsLoading(true);
+
       // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setFilteredOptions(options);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const searchValue = toLowerCase(value);
+
+      const filtered = options.filter((option: Option) => {
+        const joinedSearch = keysToSearch
+          .map((key) => {
+            return toLowerCase(option[key as keyof typeof Option]);
+          })
+          .join(" ");
+
+        return joinedSearch.includes(searchValue);
+      });
+
+      setFilteredOptions(filtered);
       setIsLoading(false);
     };
 
-    fetchOptions();
-  }, [options]);
-
-  const handleInputChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): Promise<void> => {
-    const value = event.target.value;
-    setInputValue(value);
-    setIsLoading(true);
-
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    const searchValue = toLowerCase(value);
-
-    const filtered = options.filter((option : Option) => {
-      const joinedSearch = keysToSearch
-        .map((key) => {
-          return toLowerCase(option[key as keyof typeof Option]);
-        })
-        .join(" ");
-
-      return joinedSearch.includes(searchValue);
-    });
-
-    setFilteredOptions(filtered);
-    setIsLoading(false);
-  };
-
-  return (
-    <div ref={ref} className="autocomplete-container">
-      <TextInput
-        type="text"
-        placeholder={placeholder}
-        value={inputValue}
-        onChange={handleInputChange}
-        icon="search"
-        onFocus={() => setOpen(true)}
-      />
-      <Dropdown
-        loading={isLoading}
-        options={filteredOptions}
-        isOpen={isOpen}
-        onSelect={handleOptionClick}
-        keysToShow={keysToShow}
-      />
-    </div>
-  );
-};
+    return (
+      <div ref={ref} className="autocomplete-container">
+        <TextInput
+          type="text"
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={handleInputChange}
+          icon="search"
+          onFocus={() => setOpen(true)}
+        />
+        <Dropdown
+          loading={isLoading}
+          options={filteredOptions}
+          isOpen={isOpen}
+          onSelect={handleOptionClick}
+          keysToShow={keysToShow}
+        />
+      </div>
+    );
+  }
+);
 
 export default AutoComplete;
