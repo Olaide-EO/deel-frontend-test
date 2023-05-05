@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import debounce from "../../../utils/commonfunctions/debounce";
 import { TextInput } from "../../text-input";
+import "./styles.css";
+import { Dropdown } from "../../dropdown";
+import useOutsideClick from "../../../utils/hooks/useOutsideClick";
 
-type Option = {
+export type Option = {
   id: number;
   name: string;
   email: string;
@@ -18,10 +21,23 @@ type AutoCompleteProps = {
   apiUrl: string;
 };
 
-const AutoComplete = ({ options, onSelect }: AutoCompleteProps) => {
+const AutoComplete = ({
+  options,
+  onSelect,
+  placeholder,
+}: AutoCompleteProps) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setOpen] = useState(false);
+
+  const ref = useOutsideClick(() => setOpen(false));
+
+  const handleOptionClick = (option: Option) => {
+    setInputValue(option.name);
+    setFilteredOptions([]);
+    onSelect(option);
+  };
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -50,33 +66,17 @@ const AutoComplete = ({ options, onSelect }: AutoCompleteProps) => {
     setIsLoading(false);
   };
 
-  const handleOptionClick = (option: Option) => {
-    setInputValue(option.name);
-    setFilteredOptions([]);
-    onSelect(option);
-  };
-
   return (
-    <div className="autocomplete">
+    <div ref={ref} className="autocomplete-container">
       <TextInput
         type="text"
-        placeholder="Type to search..."
+        placeholder={placeholder}
         value={inputValue}
         onChange={handleInputChange}
+        icon="search"
+        onFocus={() => setOpen(true)}
       />
-      {isLoading && <div className="loading">Loading...</div>}
-      {filteredOptions.length > 0 && (
-        <ul>
-          {filteredOptions.map((option) => (
-            <li key={option.id} onClick={() => handleOptionClick(option)}>
-              {option.name.replace(
-                new RegExp(`(${inputValue})`, "gi"),
-                "<strong>$1</strong>"
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+      <Dropdown loading={isLoading} options={filteredOptions} isOpen={isOpen} />
     </div>
   );
 };

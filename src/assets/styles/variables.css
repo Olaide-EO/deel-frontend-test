@@ -1,0 +1,23 @@
+:root {
+  --primaryColor: #40196d;
+  --blackColor: #000000;
+  --whiteColor: #ffffff;
+  --textColor: #979797;
+  --background: #F3F4F9;
+  --cardBorder: 1px solid rgba(219, 220, 224, 0.5);
+  --cardBoxShadow: 15px 30px 40px rgba(64, 25, 109, 0.07);
+  --inputBoxshadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+  --dropdownBoxShadow: 0px 0px 40px rgba(64, 25, 109, 0.07);
+  --inputBorder: 1px solid #f4f4f4;
+  --inputHeight: 46px;
+  
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 1rem;
+  --s4: 1.5rem;
+  --s5: 2rem;
+  --s6: 2.5rem;
+  --s7: 3rem;
+  --s8: 3.5rem;
+  --s9: 4rem;
+}

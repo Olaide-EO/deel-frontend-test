@@ -1,0 +1,15 @@
+.textinput-container {
+    width: 100%;
+}
+
+.text-input {
+    border: var(--inputBorder);
+    box-shadow: var(--inputBoxshadow);
+    border-radius: 5px;
+    outline: none;
+    height: var(--inputHeight);
+    width: 100%;
+    padding-left: 20px;
+    margin: 0 auto;
+    display: block;
+}

@@ -1,0 +1,12 @@
+.dropdown-container {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: calc(var(--inputHeight) + 4px);
+  z-index: 10000;
+  height: 100px;
+  padding: var(--s4);
+  background-color: var(--whiteColor);
+  border: var(--cardBorder);
+  box-shadow: var(--dropdownBoxShadow);
+}
