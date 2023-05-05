@@ -13,7 +13,6 @@ const App = () => {
         options={autocompleteMockedData}
         keysToSearch={["name", "email"]}
         keysToShow={["name", "email"]}
-        url="https://ebenezer.oladipo.com/api/search?q="
         onSelect={handleSelect}
       />
     </div>

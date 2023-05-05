@@ -4,9 +4,16 @@ interface DropdownItemProps {
   option: Option;
   onSelect: (option: Option) => void;
   keysToShow: string[];
+  inputValue: string;
 }
 
-const DropdownItem = ({ option, onSelect, keysToShow }: DropdownItemProps) => {
+const DropdownItem = ({
+  option,
+  onSelect,
+  keysToShow,
+  inputValue,
+}: DropdownItemProps) => {
+
   const formatItem = (data: Option) => {
     return keysToShow
       .reduce((acc, item) => {
@@ -17,12 +24,33 @@ const DropdownItem = ({ option, onSelect, keysToShow }: DropdownItemProps) => {
       }, [])
       .join(" -- ");
   };
+
+  const highlightedText = (text: string, input: string) => {
+    const checks = text.split(new RegExp(`(${input})`, "gi"));
+    return (
+      <span>
+        {checks.map((part, i) => (
+          <span
+            key={i}
+            style={
+              part.toLowerCase() === input.toLowerCase()
+                ? { fontWeight: "bold" }
+                : {}
+            }
+          >
+            {part}
+          </span>
+        ))}
+      </span>
+    );
+  };
+
   return (
     <div
       className="dropdownitems cursor-pointer"
       onClick={() => onSelect(option)}
     >
-      {formatItem(option)}
+      {highlightedText(formatItem(option), inputValue)}
     </div>
   );
 };

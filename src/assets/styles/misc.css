@@ -12,3 +12,8 @@
   margin-left: var(--s4);
 }
 
+@media only screen and (max-width: 768){
+ html, body {
+      font-size: 14px;
+  }  
+}

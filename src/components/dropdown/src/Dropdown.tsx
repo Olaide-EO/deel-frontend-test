@@ -10,10 +10,11 @@ interface DropdownProps {
   isOpen: boolean;
   keysToShow: string[];
   onSelect: (option: Option) => void;
+  inputValue: string;
 }
 
 const Dropdown = memo(
-  ({ loading, options, isOpen, onSelect, keysToShow }: DropdownProps) => {
+  ({ loading, options, isOpen, onSelect, keysToShow, inputValue }: DropdownProps) => {
     if (!isOpen) return null;
 
     return (
@@ -22,7 +23,7 @@ const Dropdown = memo(
         {options.map((option) => (
           <DropdownItem
             key={Math.random() * options.length * 1000}
-            {...{ option, onSelect, keysToShow }}
+            {...{ option, onSelect, keysToShow, inputValue }}
           />
         ))}
         {options.length === 0 && (

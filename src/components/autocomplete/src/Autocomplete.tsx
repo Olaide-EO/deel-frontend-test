@@ -1,5 +1,5 @@
 import { useState, useEffect, memo } from "react";
-// import debounce from "../../../utils/commonfunctions/debounce";
+import { debounce } from "../../../utils/commonfunctions";
 import { TextInput } from "../../text-input";
 import "./styles.css";
 import { Dropdown } from "../../dropdown";
@@ -18,7 +18,6 @@ type AutoCompleteProps = {
   placeholder?: string;
   keysToSearch: string[];
   keysToShow: string[];
-  url?: string;
 };
 
 const AutoComplete = memo(
@@ -54,30 +53,31 @@ const AutoComplete = memo(
       fetchOptions();
     }, [options]);
 
-    const handleInputChange = async (
-      event: React.ChangeEvent<HTMLInputElement>
-    ): Promise<void> => {
+    const fetchSearchResults = debounce(async (value: string) => {
+      try {
+        const searchValue = toLowerCase(value);
+        const filtered = options.filter((option: Option) => {
+          const joinedSearch = keysToSearch
+            .map((key) => {
+              return toLowerCase(option[key as keyof typeof Option]);
+            })
+            .join(" ");
+
+          return joinedSearch.includes(searchValue);
+        });
+
+        setFilteredOptions(filtered);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }, 500);
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;
       setInputValue(value);
       setIsLoading(true);
-
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const searchValue = toLowerCase(value);
-
-      const filtered = options.filter((option: Option) => {
-        const joinedSearch = keysToSearch
-          .map((key) => {
-            return toLowerCase(option[key as keyof typeof Option]);
-          })
-          .join(" ");
-
-        return joinedSearch.includes(searchValue);
-      });
-
-      setFilteredOptions(filtered);
-      setIsLoading(false);
+      fetchSearchResults(value);
     };
 
     return (
@@ -96,6 +96,7 @@ const AutoComplete = memo(
           isOpen={isOpen}
           onSelect={handleOptionClick}
           keysToShow={keysToShow}
+          inputValue={inputValue}
         />
       </div>
     );

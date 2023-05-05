@@ -21,7 +21,7 @@
 }
 
 .dropdownitems {
-  border-bottom: 1px solid #f4f4f4;
+  border-bottom: var(--inputBorder);
   height: 48px;
   display: flex;
   align-items: center;
